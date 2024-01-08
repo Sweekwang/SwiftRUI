@@ -1,5 +1,5 @@
 //
-//  TitleText.swift
+//  Callout.swift
 //
 //
 //  Created by Swee Kwang Chua on 6/1/24.
@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-/// `TitleText` is a SwiftUI ViewModifier designed for consistent and customizable
-/// text styling. It integrates with an app's theme system for dynamic styling
+/// `CalloutText` is a SwiftUI ViewModifier designed for consistent and customizable
+/// text styling. It integrates with an app's theme system for callout font
 /// and supports custom font and color settings.
-public struct TitleText: ViewModifier {
+public struct CalloutText: ViewModifier {
     @Environment(\.theme) var theme: Theme
     
     public var font: Font?
     public var foregroundColor: Color?
     
-    /// Initializes a new TitleText ViewModifier with optional custom font and foreground color.
+    /// Initializes a new BodyText ViewModifier with optional custom font and foreground color.
     /// - Parameters:
-    ///   - font: The font to apply to the text, defaulting to `.title`.
+    ///   - font: If nil, the font to apply to the text, defaulting callout from Theme Environment..
     ///   - foregroundColor: The text color. If nil, uses the theme's default color.
     public init(
         font: Font? = nil,
@@ -30,7 +30,7 @@ public struct TitleText: ViewModifier {
     
     /// Initializes with a theme type, applying appropriate foreground color.
     /// - Parameters:
-    ///   - font: The font to apply to the text, defaulting to `.title`.
+    ///   - font: If nil, the font to apply to the text, defaulting callout from Theme Environment..
     ///   - themeType: The theme type determining the foreground color.
     public init(
         font: Font? = nil,
@@ -51,50 +51,51 @@ public struct TitleText: ViewModifier {
     /// - Returns: Modified view with applied font and color.
     public func body(content: Content) -> some View {
         content
-            .font(font ?? theme.title)
+            .font(font ?? theme.callout)
             .foregroundColor(foregroundColor ?? theme.onBackground)
     }
 }
 
 extension View {
-    /// Applies the TitleText modifier with optional custom font and color.
+    /// Applies the callout modifier with optional custom font and color.
     /// - Parameters:
-    ///   - font: The font to apply. Defaults to `.title`.
+    ///   - font: If nil, the font to apply to the text, defaulting callout from Theme Environment..
     ///   - foregroundColor: The text color. Defaults to theme's color if nil.
     /// - Returns: The modified view.
     ///
     /// Usage:
     /// Default title styling (defined by the app's theme):
+    ///
     /// ```
     /// Text("Your Title")
-    ///     .titleText()
+    ///     .callout()
     /// ```
     /// Customized styling with headline font and red color:
     /// ```
     /// Text("Your Title")
-    ///     .titleText(font: .headline, foregroundColor: .red)
+    ///     .callout(font: .headline, foregroundColor: .red)
     /// ```
-    public func title(font: Font? = nil,
+    public func callout(font: Font? = nil,
                           foregroundColor: Color? = nil) -> some View {
-        self.modifier(TitleText(font: font,
+        self.modifier(CalloutText(font: font,
                                 foregroundColor: foregroundColor))
     }
     
-    /// Applies Title with onPrimary theme color.
+    /// Applies callout with onPrimary theme color.
     /// - Parameters:
     ///   - themeType: The theme type for foreground color.
     /// - Returns: The modified view.
-    public func titleOnBackground(font: Font? = nil) -> some View {
-        self.modifier(TitleText(font: font,
+    public func calloutOnBackground(font: Font? = nil) -> some View {
+        self.modifier(CalloutText(font: font,
                                 themeType: .background))
     }
     
-    /// Applies Title with onPrimary theme color.
+    /// Applies callout with onPrimary theme color.
     /// - Parameters:
     ///   - themeType: The theme type for foreground color.
     /// - Returns: The modified view.
-    public func titleOnPrimary(font: Font? = nil) -> some View {
-        self.modifier(TitleText(font: font,
+    public func calloutOnPrimary(font: Font? = nil) -> some View {
+        self.modifier(CalloutText(font: font,
                                 themeType: .primary))
     }
 }
