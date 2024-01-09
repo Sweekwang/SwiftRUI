@@ -20,15 +20,17 @@ public struct BasicButton: View {
     var font: Font
     var cornerRadius: CGFloat
     var padding: RUIPadding
-
+    var fullwidth: Bool
+    
     public init(title: String,
-         type: ButtonType = .filled,
-         font: Font = .body,
-         foregroundColor: Color? = nil,
-         backgroundColor: Color? = nil,
-         cornerRadius: CGFloat = 8,
-         padding: RUIPadding = RUIPadding(16),
-         action: @escaping () -> Void) {
+                type: ButtonType = .filled,
+                font: Font = .body,
+                foregroundColor: Color? = nil,
+                backgroundColor: Color? = nil,
+                cornerRadius: CGFloat = 8,
+                padding: RUIPadding = RUIPadding(16),
+                fullwidth: Bool = true,
+                action: @escaping () -> Void) {
         self.title = title
         self.action = action
         self.buttonType = type
@@ -37,19 +39,30 @@ public struct BasicButton: View {
         self.font = font
         self.cornerRadius = cornerRadius
         self.padding = padding
+        self.fullwidth = fullwidth
     }
-
+    
     public var body: some View {
         Button(action: action) {
-            Text(title)
-                .font(font)
-                .foregroundColor(customForegroundColor ?? theme.onPrimary)
-                .padding(.top, padding.top)
-                .padding(.trailing, padding.trailing)
-                .padding(.bottom, padding.bottom)
-                .padding(.leading, padding.leading)
-                .background(customBackgroundColor ?? theme.primary)
-                .cornerRadius(cornerRadius)
+            HStack {
+                if fullwidth {
+                    Spacer()
+                }
+                
+                Text(title)
+                    .font(font)
+                    .foregroundColor(customForegroundColor ?? theme.onPrimary)
+                    .padding(.top, padding.top)
+                    .padding(.trailing, padding.trailing)
+                    .padding(.bottom, padding.bottom)
+                    .padding(.leading, padding.leading)
+                
+                if fullwidth {
+                    Spacer()
+                }
+            }
+            .background(customBackgroundColor ?? theme.primary)
+            .cornerRadius(cornerRadius)
         }
     }
 }
@@ -62,7 +75,7 @@ public struct BasicButton: View {
             
         }
         
-        BasicButton(title: "Sign Up", 
+        BasicButton(title: "Sign Up",
                     type: .filled,
                     foregroundColor: .gray,
                     backgroundColor: Color(uiColor: UIColor.systemGray6)
