@@ -21,7 +21,7 @@ public struct BasicButton: View {
     var cornerRadius: CGFloat
     var padding: RUIPadding
 
-    init(title: String,
+    public init(title: String,
          type: ButtonType = .filled,
          font: Font = .body,
          foregroundColor: Color? = nil,

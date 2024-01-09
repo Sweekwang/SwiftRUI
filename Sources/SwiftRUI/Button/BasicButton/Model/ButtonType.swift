@@ -24,7 +24,7 @@ import Foundation
 ///   - Background color: Transparent.
 ///   - Outline color: Uses the primary color.
 ///   - Foreground color: Matches the outline color.
-enum ButtonType {
+public enum ButtonType {
     case plain
     case filled
     case outlined
