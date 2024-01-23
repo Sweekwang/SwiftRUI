@@ -74,7 +74,7 @@ public struct BasicButton: View {
             .cornerRadius(cornerRadius)
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius)
-                    .stroke(customBackgroundColor ?? theme.primary, lineWidth: buttonType == .outlined ? lineWidth : 0)
+                    .stroke(customOutlineColor ?? theme.primary, lineWidth: buttonType == .outlined ? lineWidth : 0)
             )
         }
     }
