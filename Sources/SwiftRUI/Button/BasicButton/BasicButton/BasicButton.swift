@@ -17,9 +17,11 @@ public struct BasicButton: View {
     var buttonType: ButtonType
     var customForegroundColor: Color?
     var customBackgroundColor: Color?
+    var customOutlineColor: Color?
     var font: Font
     var cornerRadius: CGFloat
     var padding: RUIPadding
+    var lineWidth: CGFloat
     var fullwidth: Bool
     
     public init(title: String,
@@ -27,8 +29,10 @@ public struct BasicButton: View {
                 font: Font = .body,
                 foregroundColor: Color? = nil,
                 backgroundColor: Color? = nil,
+                outlineColor: Color? = nil,
                 cornerRadius: CGFloat = 8,
                 padding: RUIPadding = RUIPadding(16),
+                lineWidth: CGFloat = 1,
                 fullwidth: Bool = true,
                 action: @escaping () -> Void) {
         self.title = title
@@ -36,9 +40,11 @@ public struct BasicButton: View {
         self.buttonType = type
         self.customForegroundColor = foregroundColor
         self.customBackgroundColor = backgroundColor
+        self.customOutlineColor = outlineColor
         self.font = font
         self.cornerRadius = cornerRadius
         self.padding = padding
+        self.lineWidth = lineWidth
         self.fullwidth = fullwidth
     }
     
@@ -61,8 +67,15 @@ public struct BasicButton: View {
                     Spacer()
                 }
             }
-            .background(customBackgroundColor ?? theme.primary)
+            .background(
+                buttonType == .outlined ? customBackgroundColor ?? nil :
+                customBackgroundColor ?? theme.primary
+            )
             .cornerRadius(cornerRadius)
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .stroke(customBackgroundColor ?? theme.primary, lineWidth: buttonType == .outlined ? lineWidth : 0)
+            )
         }
     }
 }
