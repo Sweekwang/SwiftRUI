@@ -40,9 +40,9 @@ public struct LabelText: ViewModifier {
         
         switch themeType {
         case .background:
-            foregroundColor = theme.onBackground
+            foregroundColor = theme.colors.onBackground
         case .primary:
-            foregroundColor = theme.onPrimary
+            foregroundColor = theme.colors.onPrimary
         }
     }
     
@@ -51,8 +51,8 @@ public struct LabelText: ViewModifier {
     /// - Returns: Modified view with applied font and color.
     public func body(content: Content) -> some View {
         content
-            .font(font ?? theme.label)
-            .foregroundColor(foregroundColor ?? theme.onBackground)
+            .font(font ?? theme.fonts.label)
+            .foregroundColor(foregroundColor ?? theme.colors.onBackground)
     }
 }
 

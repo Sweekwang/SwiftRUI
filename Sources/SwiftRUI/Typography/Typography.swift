@@ -7,18 +7,16 @@
 
 import SwiftUI
 
+///  In some situations TextStyle key might not fit your app font type. Hopefully, you might be able to take advantage of the typography keys of the theme.
 struct Typography: View {
     var text: String
     var style: TextStyle
     
     var body: some View {
         Text(text)
-            .font(style.font)
-            .foregroundColor(style.color)
-            .multilineTextAlignment(style.textAlignment)
     }
 }
 
 #Preview {
-    Typography()
+    Typography(text: "Typography", style: .body)
 }

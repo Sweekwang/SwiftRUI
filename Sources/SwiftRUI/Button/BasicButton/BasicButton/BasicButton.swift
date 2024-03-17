@@ -57,7 +57,7 @@ public struct BasicButton: View {
                 
                 Text(title)
                     .font(font)
-                    .foregroundColor(customForegroundColor ?? theme.onPrimary)
+                    .foregroundColor(customForegroundColor ?? theme.colors.onPrimary)
                     .padding(.top, padding.top)
                     .padding(.trailing, padding.trailing)
                     .padding(.bottom, padding.bottom)
@@ -69,12 +69,12 @@ public struct BasicButton: View {
             }
             .background(
                 buttonType == .outlined ? customBackgroundColor ?? nil :
-                customBackgroundColor ?? theme.primary
+                    customBackgroundColor ?? theme.colors.primary
             )
             .cornerRadius(cornerRadius)
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius)
-                    .stroke(customOutlineColor ?? theme.primary, lineWidth: buttonType == .outlined ? lineWidth : 0)
+                    .stroke(customOutlineColor ?? theme.colors.primary, lineWidth: buttonType == .outlined ? lineWidth : 0)
             )
         }
     }

@@ -66,7 +66,7 @@ public struct RUIFStack<Content: View>: View {
             }
         }
         .background(
-            theme.background
+            theme.colors.background
         )
         
     }
