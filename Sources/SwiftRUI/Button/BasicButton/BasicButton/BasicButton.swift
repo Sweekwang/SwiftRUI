@@ -17,39 +17,65 @@ public struct BasicButton: View {
     var buttonType: ButtonType
     var customForegroundColor: Color?
     var customBackgroundColor: Color?
+    var customOutlineColor: Color?
     var font: Font
     var cornerRadius: CGFloat
     var padding: RUIPadding
-
-    init(title: String,
-         type: ButtonType = .filled,
-         font: Font = .body,
-         foregroundColor: Color? = nil,
-         backgroundColor: Color? = nil,
-         cornerRadius: CGFloat = 8,
-         padding: RUIPadding = RUIPadding(16),
-         action: @escaping () -> Void) {
+    var lineWidth: CGFloat
+    var fullwidth: Bool
+    
+    public init(title: String,
+                type: ButtonType = .filled,
+                font: Font = .body,
+                foregroundColor: Color? = nil,
+                backgroundColor: Color? = nil,
+                outlineColor: Color? = nil,
+                cornerRadius: CGFloat = 8,
+                padding: RUIPadding = RUIPadding(16),
+                lineWidth: CGFloat = 1,
+                fullwidth: Bool = true,
+                action: @escaping () -> Void) {
         self.title = title
         self.action = action
         self.buttonType = type
         self.customForegroundColor = foregroundColor
         self.customBackgroundColor = backgroundColor
+        self.customOutlineColor = outlineColor
         self.font = font
         self.cornerRadius = cornerRadius
         self.padding = padding
+        self.lineWidth = lineWidth
+        self.fullwidth = fullwidth
     }
-
+    
     public var body: some View {
         Button(action: action) {
-            Text(title)
-                .font(font)
-                .foregroundColor(customForegroundColor ?? theme.onPrimary)
-                .padding(.top, padding.top)
-                .padding(.trailing, padding.trailing)
-                .padding(.bottom, padding.bottom)
-                .padding(.leading, padding.leading)
-                .background(customBackgroundColor ?? theme.primary)
-                .cornerRadius(cornerRadius)
+            HStack {
+                if fullwidth {
+                    Spacer()
+                }
+                
+                Text(title)
+                    .font(font)
+                    .foregroundColor(customForegroundColor ?? theme.colors.onPrimary)
+                    .padding(.top, padding.top)
+                    .padding(.trailing, padding.trailing)
+                    .padding(.bottom, padding.bottom)
+                    .padding(.leading, padding.leading)
+                
+                if fullwidth {
+                    Spacer()
+                }
+            }
+            .background(
+                buttonType == .outlined ? customBackgroundColor ?? nil :
+                    customBackgroundColor ?? theme.colors.primary
+            )
+            .cornerRadius(cornerRadius)
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .stroke(customOutlineColor ?? theme.colors.primary, lineWidth: buttonType == .outlined ? lineWidth : 0)
+            )
         }
     }
 }
@@ -62,7 +88,7 @@ public struct BasicButton: View {
             
         }
         
-        BasicButton(title: "Sign Up", 
+        BasicButton(title: "Sign Up",
                     type: .filled,
                     foregroundColor: .gray,
                     backgroundColor: Color(uiColor: UIColor.systemGray6)
